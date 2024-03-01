@@ -17,11 +17,8 @@
 #define C2_PIN 25
 #define C3_PIN 26
 
-/* Vision UART */
-#define VISION_UART_RX_PIN 16
-#define VISION_UART_TX_PIN 17
-
 /* Buzzer */
 #define BUZZER_PIN 15
+#define BUTTON_PIN 13
 
 #endif // BOARD_H

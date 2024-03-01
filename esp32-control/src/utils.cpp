@@ -25,7 +25,6 @@ void byte_array_to_string(byte array[], unsigned int len, char buffer[])
 void reset_temp_user()
 {
     memset((char *)user.password, 0x00, USER_PASSWORD_SIZE);
-    memset((char *)user.name, 0x00, USER_NAME_SIZE);
     memset((char *)user.nfc_id, 0x00, USER_NFC_ID_SIZE);
 }
 

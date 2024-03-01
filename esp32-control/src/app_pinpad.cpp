@@ -35,24 +35,34 @@ static void vPinpadTask(void *pvParameters)
 
     for (;;)
     {
-        if (program_state == kStateReadPinpad)
+        if (program_state == kStateReadPinpad || program_state == kStateRegisterPinpad)
         {
             char key = keypad.getKey();
 
             if (key)
             {
+                if (key == '*')
+                {
+                    program_state = kStateRegisterPinpad;
+                    continue;
+                }
+
                 temp_key[temp_key_sz++] = key;
                 play_tone(kToneKeyPress);
                 if (temp_key_sz >= PIN_LENGTH)
                 {
-                    LOG_MSG("Read pin from keypad: %s\nMoving to nfc reading\n", temp_key);
+                    LOG_MSG("Read pin from keypad: %s\nMoving to nfc\n", temp_key);
 
                     strcpy(user.password, temp_key);
 
                     memset((char *)temp_key, 0x00, PIN_LENGTH + 1);
                     temp_key_sz = 0;
 
-                    program_state = kStateReadNFC;
+                    if (program_state == kStateRegisterPinpad)
+                        program_state = kStateRegisterNFC;
+                    else
+                        program_state = kStateReadNFC;
+
                     play_tone(kToneSuccess);
                 }
             }

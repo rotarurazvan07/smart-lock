@@ -57,25 +57,23 @@ static void vDisplayTask(void *pvParameters)
             case kStateReadPinpad:
                 writeToDisplay((char *)"(Reading) Input the pin on the keypad");
                 break;
+            case kStateRegisterPinpad:
+                writeToDisplay((char *)"(Register) Input the pin on the keypad");
+                break;
             case kStateReadNFC:
                 writeToDisplay((char *)"(Reading) Tap the card on the NFC reader");
-                break;
-            case kStateReadFace:
-                writeToDisplay((char *)"(Reading) Wain until GREEN led turns on. Then position your face so the RED led blinks. Stay like that for ~10 seconds until both the leds turn off");
                 break;
             case kStateRegisterNFC:
                 writeToDisplay((char *)"(Register) Tap the card on the NFC reader");
                 break;
-            case kStateRegisterFace:
-                writeToDisplay((char *)"(Register) Wain until GREEN led turns on. Then position your face so the RED led blinks. Stay like that for ~10 seconds until both the leds turn off");
-                break;
             case kStateRegisterSuccess:
-                writeToDisplay((char *)(String("Succesfully registered user: ") + String(user.name)).c_str());
+                writeToDisplay((char *)"Succesfully registered user");
                 break;
             case kStateRegisterFail:
+                writeToDisplay((char *)"Registration failed");
                 break;
             case kStateReadSuccess:
-                writeToDisplay((char *)(String("(Reading) Access granted. Successfully recognised user: ") + String(user.name)).c_str());
+                writeToDisplay((char *)"Access granted. Successfully recognised user");
                 break;
             case kStateReadFail:
                 writeToDisplay((char *)"(Reading) Access denied. One method was wrong");

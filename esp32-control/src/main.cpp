@@ -18,8 +18,9 @@ void setup()
     program_state = kStateReadPinpad;
 
     pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-    BleServerInit();
+    // BleServerInit();
 
     UserDatabaseInit();
 
@@ -27,7 +28,7 @@ void setup()
 
     PinpadInit();
 
-    VisionInit();
+   // VisionInit();
 
     DisplayInit();
 }

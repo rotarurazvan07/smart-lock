@@ -12,10 +12,9 @@ typedef enum _program_state
 {
     kStateReadPinpad,
     kStateReadNFC,
-    kStateReadFace,
 
     kStateRegisterNFC,
-    kStateRegisterFace,
+    kStateRegisterPinpad,
 
     kStateRegisterSuccess,
     kStateRegisterFail,

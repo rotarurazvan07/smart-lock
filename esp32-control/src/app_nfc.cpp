@@ -45,25 +45,47 @@ static void vNfcTask(void *pvParameters)
                     if (program_state == kStateRegisterNFC)
                     {
                         strcpy(user.nfc_id, nfc_id);
+                        bool result = UserDatabaseSaveUser(user.password, user.nfc_id);
+                        if (result) {
+                            program_state = kStateRegisterSuccess;
+                            play_tone(kToneSuccess);
+                        }
+                        else {
+                            program_state = kStateRegisterFail;
+                            play_tone(kToneFail);
+                        }
 
-                        LOG_MSG("Registered nfc, moving to vision registration\n");
+                        delay(2000);
 
-                        char msg[50] = "";
-                        snprintf(msg, 50, "AT+REGISTER=%s\n", user.name);
-                        VisionSend((const char *)msg);
-
-                        program_state = kStateRegisterFace;
-                        play_tone(kToneSuccess);
+                        LOG_MSG("Reseting program state to reading\n");
+                        reset_temp_user();
+                        program_state = kStateReadPinpad;
                     }
                     else if (program_state == kStateReadNFC)
                     {
-                        Serial.println("Reading nfc tag success, moving to vision recognition");
-
                         strcpy(user.nfc_id, nfc_id);
-                        VisionSend((const char *)"AT+READUSER=\n");
 
-                        program_state = kStateReadFace;
-                        play_tone(kToneSuccess);
+                        bool result = UserDatabaseMatchUser(user.password, user.nfc_id);
+
+                        if (result)
+                        {
+                            LOG_MSG("Door opened\n");
+                            program_state = kStateReadSuccess;
+                            // TODO open door
+                            play_tone(kToneSuccess);
+                        }
+                        else
+                        {
+                            LOG_MSG("One method was wrong\n");
+                            program_state = kStateReadFail;
+                            play_tone(kToneFail);
+                        }
+
+                        delay(2000);
+
+                        LOG_MSG("Reseting program state to reading\n");
+                        reset_temp_user();
+                        program_state = kStateReadPinpad;
                     }
 
                     mfrc522.PICC_HaltA();
