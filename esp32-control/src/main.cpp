@@ -19,6 +19,7 @@ void setup()
 
     pinMode(BUZZER_PIN, OUTPUT);
     pinMode(BUTTON_PIN, INPUT_PULLUP);
+    pinMode(17, OUTPUT);
 
     // BleServerInit();
 

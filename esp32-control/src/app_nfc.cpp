@@ -73,6 +73,10 @@ static void vNfcTask(void *pvParameters)
                             program_state = kStateReadSuccess;
                             // TODO open door
                             play_tone(kToneSuccess);
+                            digitalWrite(17, HIGH);
+                            delay(3000);
+                            digitalWrite(17, LOW);
+                            play_tone(kToneSuccess);
                         }
                         else
                         {
