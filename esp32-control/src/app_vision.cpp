@@ -83,6 +83,10 @@ static void processMessage(const char *msg)
             LOG_MSG("Door opened\n");
             program_state = kStateReadSuccess;
             play_tone(kToneSuccess);
+            digitalWrite(RELAY_PIN, LOW);
+            delay(3000);
+            digitalWrite(RELAY_PIN, HIGH);
+            play_tone(kToneSuccess);
         }
         else
         {

@@ -24,4 +24,7 @@
 /* Buzzer */
 #define BUZZER_PIN 15
 
+/* Relay */
+#define RELAY_PIN 17 //To change
+
 #endif // BOARD_H

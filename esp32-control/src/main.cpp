@@ -18,6 +18,7 @@ void setup()
     program_state = kStateReadPinpad;
 
     pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(RELAY_PIN, OUTPUT);
 
     BleServerInit();
 
